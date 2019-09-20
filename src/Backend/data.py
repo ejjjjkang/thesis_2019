@@ -1,9 +1,13 @@
+# https://github.com/philbot9/youtube-comment-api
+
+
 import os
 from io import open
 import torch
 from konlpy.tag import Okt  #한국어말뭉치
 
-PATH = ''
+PATH = './'
+print(PATH)
 
 class Dictionary(object):
     def __init__(self):
@@ -18,6 +22,7 @@ class Dictionary(object):
 
     def __len__(self):
         return len(self.idx2word)
+
 
 class Corpus(object):
     def __init__(self):
