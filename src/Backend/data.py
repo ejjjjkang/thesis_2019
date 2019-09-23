@@ -1,13 +1,13 @@
-# https://github.com/philbot9/youtube-comment-api
-
-
 import os
 from io import open
 import torch
-from konlpy.tag import Okt  #한국어말뭉치
 
-PATH = './'
-print(PATH)
+"""
+불용어 제거할 것 
+1. 숫자
+2. 한글자
+
+"""
 
 class Dictionary(object):
     def __init__(self):
@@ -25,25 +25,31 @@ class Dictionary(object):
 
 
 class Corpus(object):
-    def __init__(self):
+    def __init__(self, path):
         self.dictionary = Dictionary()
+        self.train = self.tokenize(os.path.join(path, 'train_progressive.txt'))
+        self.valid = self.tokenize(os.path.join(path, 'valid_progressive.txt'))
+        self.test = self.tokenize(os.path.join(path, 'test_progressive.txt'))
 
-    def Tokenize(self):
-        """tokenize text file"""
-        n = 0
-        result = []
-        assert os.path.exists(PATH)
-        with open(PATH, 'r', encoding='utf-8') as f:
-            while True:
-                line = f.readline()
-                n = n+1
-                if not line:break
-                temp = []
-                for word in tokenlist:
-                    if word[1] in ["Noun"]:  # 명사일 때만
-                        temp.append((word[0]))  # 해당 단어를 저장함
 
-                if temp:  # 만약 이번에 읽은 데이터에 명사가 존재할 경우에만
-                    result.append(temp)  # 결과에 저장
-            f.close()
+        # self.okt = Okt()
 
+    def tokenize(self, path):
+        """Tokenizes a text file."""
+        assert os.path.exists(path)
+        with open(path, encoding="utf8") as fred:
+            for line in fred:
+                words = line.split() + ['<eos>']
+                for word in words:
+                    self.dictionary.add_word(word)
+
+        with open(path, encoding="utf8") as fred:
+            idss = []
+            for line in fred:
+                words = line.split() + ['<eos>']
+                ids = []
+                for word in words:
+                    ids.append(self.dictionary.word2idx[word])
+                idss.append(torch.tensor(ids).type(torch.int64))
+            ids = torch.cat(idss)
+            return ids
