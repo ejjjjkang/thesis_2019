@@ -88,11 +88,11 @@ def batchify(data, bsz):
 
 eval_batch_size = 10
 
-train_corpus = corpus.tokenize('./conservative.txt')
+# train_corpus = corpus.tokenize('./conservative.txt')
 
-train_data = batchify(train_corpus, args.batch_size)
-val_data = batchify(train_corpus, eval_batch_size)
-test_data = batchify(train_corpus, eval_batch_size)
+train_data = batchify(corpus.train, args.batch_size)
+val_data = batchify(corpus.valid, eval_batch_size)
+test_data = batchify(corpus.test, eval_batch_size)
 
 
 ###############################################################################

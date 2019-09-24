@@ -27,9 +27,9 @@ class Dictionary(object):
 class Corpus(object):
     def __init__(self, path):
         self.dictionary = Dictionary()
-        self.train = self.tokenize(os.path.join(path, 'train_progressive.txt'))
-        self.valid = self.tokenize(os.path.join(path, 'valid_progressive.txt'))
-        self.test = self.tokenize(os.path.join(path, 'test_progressive.txt'))
+        self.train = self.tokenize(os.path.join(path, 'train_conservative.txt'))
+        self.valid = self.tokenize(os.path.join(path, 'valid_conservative.txt'))
+        self.test = self.tokenize(os.path.join(path, 'test_conservative.txt'))
 
 
         # self.okt = Okt()

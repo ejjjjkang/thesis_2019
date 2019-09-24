@@ -18,7 +18,7 @@ parser.add_argument('--data', type=str, default='./dataset',
                     help='location of the data corpus')
 parser.add_argument('--checkpoint', type=str, default='./model_progressive.pt',
                     help='model checkpoint to use')
-parser.add_argument('--outf', type=str, default='generated.txt',
+parser.add_argument('--outf', type=str, default='generated_conservative.txt',
                     help='output file for generated text')
 parser.add_argument('--words', type=int, default='1000',
                     help='number of words to generate')
